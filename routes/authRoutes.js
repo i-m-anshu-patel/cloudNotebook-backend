@@ -3,11 +3,10 @@ const router = express.Router();
 const authValidator = require('../middlewares/authValidation')
 const authController = require('../controllers/authController')
 
-router.get('/', authValidator, (req, res) => {
-    console.log("oyeee")
-    res.send("Hello from admin");
-});
 
-router.post('/createUser', authValidator, authController.createNewUser)
+
+router.post('/createUser', authValidator.createUserValidation, authController.createNewUser);
+
+router.post('/signInUser', authValidator.loginUserValidation, authController.signInUser);
 
 module.exports = router;

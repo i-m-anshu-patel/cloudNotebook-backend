@@ -11,6 +11,6 @@ app.use(bodyParser.json());
 app.use('/auth', authRoutes);
 app.use('/api/notes', notesRoutes)
 
-app.listen(3000, () => {
-    console.log("App listening at port 3000");
+app.listen(5000, () => {
+    console.log("App listening at port 5000");
 })
