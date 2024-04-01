@@ -18,8 +18,6 @@ exports.createNewUser = async (req, res, next) => {
         }
     }
     const authToken = jwt.sign(data, JWT_SECRET)
-    // const verifyToken = jwt.verify(authToken, JWT_SECRET);
-    // console.log(verifyToken);
     res.send(authToken);
 }
 
