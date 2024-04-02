@@ -22,5 +22,31 @@ exports.fetchAllNotes = async (req, res) => {
     catch (err){
         return  res.status(500).json({error: err})
     }
-    
+}
+
+exports.editNote = async (req, res) => {
+    try{
+        const noteId = req.params.noteId;
+        const updateParams = {
+            title: req.body.title,
+            description: req.body.description,
+            tag: req.body.tag
+        }
+        const notes = await Note.updateOne({id: noteId}, updateParams);
+        return  res.status(500).json({message: "Note updated"})
+    }
+    catch (err){
+        return  res.status(500).json({error: err})
+    }
+}
+
+exports.deleteNote = async (req, res) => {
+    try{
+        const noteId = req.params.noteId;
+        User.deleteOne({ id: noteId });
+        return  res.status(500).json({message: "Note deleted"})
+    }
+    catch (err){
+        return  res.status(500).json({error: err})
+    }
 }
