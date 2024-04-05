@@ -18,7 +18,7 @@ exports.createNewUser = async (req, res, next) => {
         }
     }
     const authToken = jwt.sign(data, JWT_SECRET)
-    res.send(authToken);
+    res.send({authToken});
 }
 
 exports.signInUser = async (req, res, next) => {
@@ -26,11 +26,11 @@ exports.signInUser = async (req, res, next) => {
         const { email, password} = req.body;
         const user = await User.findOne({email});
         if(!user){
-            return res.status(400).json({error: "Incorrect email entered"})
+            return res.status(400).json({errors: "Incorrect email entered"})
         }
         const matchingPassword = await bcrypt.compare(password, user.password);
         if(!matchingPassword){
-            return res.status(400).json({error: "Incorrect password entered"});
+            return res.status(400).json({errors: "Incorrect password entered"});
         }
         const data = {
             user: {
@@ -38,10 +38,10 @@ exports.signInUser = async (req, res, next) => {
             }
         }
         const authToken = jwt.sign(data, JWT_SECRET);
-        res.send(authToken);
+        res.send({authToken});
     }
     catch (err){
-       return res.status(401).json({error: "Incorrect credentials entered"})
+       return res.status(401).json({errors: "Incorrect credentials entered"})
     }
     
     
